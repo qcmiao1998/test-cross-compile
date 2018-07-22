@@ -1,0 +1,54 @@
+language: c
+
+matrix:
+  include:
+  - os: linux
+    addons:
+      apt:
+        sources:
+          - ubuntu-toolchain-r-test
+        packages:
+          - g++-7
+    env:
+    - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    - TARGET="linux"
+  - os: linux
+    addons:
+      apt:
+        packages:
+          - mingw-w64
+    env:
+      - MATRIX_EVAL=""
+      - TARGET="windows"
+  - os: osx
+    osx_image: xcode8
+    env:
+      - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+      - TARGET="osx"
+before_script:
+  - eval "${MATRIX_EVAL}"
+script:
+  - if [ "$TARGET" = "linux" ]; then
+      echo "===> Building for linux..." &&
+      cd "$TRAVIS_BUILD_DIR" &&
+      mkdir build &&
+      cd build &&
+      cmake .. &&
+      make;
+    fi
+  - if [ "$TARGET" = "windows" ]; then
+      echo "===> Building for windows..." &&
+      cd "$TRAVIS_BUILD_DIR" &&
+      mkdir build &&
+      cd build &&
+      cmake -DCMAKE_TOOLCHAIN_FILE=../Toolchain-cross-mingw32-linux.cmake .. &&
+      make;
+    fi
+  - if [ "$TARGET" = "osx" ]; then
+      cd "$TRAVIS_BUILD_DIR" &&
+      mkdir build &&
+      cd build &&
+      cmake .. &&
+      make;
+    fi
+install: pass
