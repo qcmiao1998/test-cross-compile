@@ -26,6 +26,10 @@ matrix:
       - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
       - TARGET="osx"
 before_script:
+  - if [ "$TARGET" = "osx" ]; then
+      brew update &&
+      brew install ruby
+    fi
   - eval "${MATRIX_EVAL}"
 script:
   - if [ "$TARGET" = "linux" ]; then
