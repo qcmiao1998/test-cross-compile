@@ -28,7 +28,7 @@ matrix:
 before_script:
   - if [ "$TARGET" = "osx" ]; then
       brew update &&
-      brew install ruby
+      brew install ruby;
     fi
   - eval "${MATRIX_EVAL}"
 script:
