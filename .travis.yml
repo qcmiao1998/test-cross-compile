@@ -8,7 +8,7 @@ matrix:
         sources:
           - ubuntu-toolchain-r-test
         packages:
-          - g++-7
+          - gcc-7
     env:
     - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     - TARGET="linux"
@@ -51,4 +51,3 @@ script:
       cmake .. &&
       make;
     fi
-install: pass
