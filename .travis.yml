@@ -34,7 +34,6 @@ before_script:
 script:
   - if [ "$TARGET" = "linux" ]; then
     echo "===> Building for linux..." &&
-    perl -e 'my $TTARGET = "linux"' &&
     cd "$TRAVIS_BUILD_DIR" &&
     mkdir build &&
     cd build &&
@@ -43,7 +42,6 @@ script:
     fi
   - if [ "$TARGET" = "windows" ]; then
     echo "===> Building for windows..." &&
-    perl -e 'my $TTARGET = "x86_64"' &&
     cd "$TRAVIS_BUILD_DIR" &&
     mkdir build &&
     cd build &&
@@ -51,14 +49,13 @@ script:
     make; fi
   - if [ "$TARGET" = "osx" ]; then
     echo "===> Building for macosx..." &&
-    perl -e 'my $TTARGET = "osx"' &&
     cd "$TRAVIS_BUILD_DIR" &&
     mkdir build &&
     cd build &&
     cmake .. &&
     make;
     fi
-  - rename 's/test-app/test-app-$TTARGET/' test-app*
+  - eval "rename 's/test-app/test-app-${TARGET}/' test-app*"
 deploy:
   provider: releases
   api_key:
