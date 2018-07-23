@@ -54,7 +54,7 @@ script:
     cmake .. &&
     make;
     fi
-  - rename 's/test-app/test-app-$TARGET/' test-app*
+  - rename 's/"test-app"/"test-app-$TARGET"/' test-app*
 deploy:
   provider: releases
   api_key:
