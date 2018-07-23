@@ -27,7 +27,8 @@ matrix:
 before_script:
   - if [ "$TARGET" = "osx" ]; then
     brew update &&
-    brew install ruby;
+    brew install ruby &&
+    brew install rename;
     fi
   - eval "${MATRIX_EVAL}"
 script:
@@ -53,7 +54,7 @@ script:
     cmake .. &&
     make;
     fi
-  - rename test-app test-app-"$TARGET" test-app*
+  - rename 's/test-app/test-app-$TARGET/' test-app*
 deploy:
   provider: releases
   api_key:
