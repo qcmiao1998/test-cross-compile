@@ -18,7 +18,7 @@ matrix:
         - mingw-w64
     env:
     - MATRIX_EVAL=""
-    - TARGET="x86_64"
+    - TARGET="windows"
   - os: osx
     osx_image: xcode8
     env:
@@ -34,27 +34,31 @@ before_script:
 script:
   - if [ "$TARGET" = "linux" ]; then
     echo "===> Building for linux..." &&
+    perl -e 'my $TTARGET = "linux"' &&
     cd "$TRAVIS_BUILD_DIR" &&
     mkdir build &&
     cd build &&
     cmake .. &&
     make;
     fi
-  - if [ "$TARGET" = "x86_64" ]; then
+  - if [ "$TARGET" = "windows" ]; then
     echo "===> Building for windows..." &&
+    perl -e 'my $TTARGET = "x86_64"' &&
     cd "$TRAVIS_BUILD_DIR" &&
     mkdir build &&
     cd build &&
     cmake -DCMAKE_TOOLCHAIN_FILE=../Toolchain-cross-mingw32-linux.cmake .. &&
     make; fi
   - if [ "$TARGET" = "osx" ]; then
+    echo "===> Building for macosx..." &&
+    perl -e 'my $TTARGET = "osx"' &&
     cd "$TRAVIS_BUILD_DIR" &&
     mkdir build &&
     cd build &&
     cmake .. &&
     make;
     fi
-  - rename 's/"test-app"/"test-app-$TARGET"/' test-app*
+  - rename 's/test-app/test-app-$TTARGET/' test-app*
 deploy:
   provider: releases
   api_key:
