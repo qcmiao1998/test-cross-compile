@@ -36,8 +36,8 @@ script:
 - if [ "$TARGET" = "osx" ]; then cd "$TRAVIS_BUILD_DIR" && mkdir build && cd build
   && cmake .. && make; fi
 before_deploy:
-- cd "$TRAVIS_BUILD_DIR"/build
-- rename test-app test-app-"$TARGET" test-app*
+- cd "$TRAVIS_BUILD_DIR"/build;
+- rename test-app test-app-"$TARGET" test-app*;
 deploy:
   provider: releases
   api_key:
