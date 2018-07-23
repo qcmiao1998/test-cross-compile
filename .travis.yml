@@ -50,14 +50,14 @@ script:
     cd "$TRAVIS_BUILD_DIR" &&
     mkdir build &&
     cd build &&
-    cmake ..
-    && make;
+    cmake .. &&
+    make;
     fi
   - rename test-app test-app-"$TARGET" test-app*
 deploy:
   provider: releases
   api_key:
     secure: dDcGTs4/NdEuRdKP+LZoHIgnMcroH4Xlf6pIxVvkwMm/ii1mEVWMDIZ77UMrA1SXHCEUQkAFry+VH9vi7yqApIsd8x1NMUkugI6O2beVSG5fupFBw0kkrHiZ6K04UVQCbZZ1yyMvhS2NWnLpYiz8YuMUxiSMKK4rqcUr21UF1IK3mac+A3RmgbTkImiyooxhbSRtVWMm+1h4+6pmu+lfQVgA5XuHZuj7FXgTlFa8cae7D32RF8AlX1GOU16Lt6GW3+N6Eas5cUPlL0W0w53BmYGy8OjBEEMZbx8BpkYzdW+svoVJFzE4+rRPaKaYtPgRm7XM2SC+V62c648ADXEClK/U448o9q0sW3HnnsWV0uYk7SLLRcV7yMoDnUbnB3gx+DwSqoQAKYJOP3dgf3bXOdu1H6uioAqeBLwYhVm/SIJKZIncQA+APHwIdGQmrArN6I1FZ7l4u9QPijBk81Wm+4Mz96dzkFBegvHCTdtlK/OpxJAKMSKLlQb1ZDhlpEcL75QgyZOyoM1m6JDMWKiVHqzfM9kIUjMeffiDKznDZYNIAql9GxY1r48S/6AMQePPr06ZJQoZ8toJNZ1UJUjD7gvguCqnuexn78nMa6iQpr2NNWhnFI7zazSknaRCFS1ekVLps3DnCxf+Dz3VTLOsMyexwNyjmDkInEZJRz5XDfI=
-  file: "$TRAVIS_BUILD_DIR"/build/test-app*
+  file: $TRAVIS_BUILD_DIR/build/test-app*
   skip_cleanup: true
 
