@@ -6,6 +6,6 @@
 #include "stdio.h"
 
 int main(){
-    printf("Test APP!");
+    printf("Test APP!\n");
     return 0;
 }
